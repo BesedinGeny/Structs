@@ -68,22 +68,7 @@ private:
     int mas[N];
 public:
 
-    //без указания максимальной длины очереди
-    /*queue(){
-         mas = new int(N);
-    }
-
-    //с указанием макс. длинны очереди
-    queue(int SIZE){
-         mas = new int(SIZE);
-        S = SIZE;
-    }
-
-    //очищение памяти
-    ~queue(){
-        delete mas;
-    }
-*/
+    
     //добавление в очередь
     int push(int elem){
         if (uL == (uR + 1) % S)
