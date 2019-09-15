@@ -50,7 +50,7 @@ public:
 
     //узнать индекс верхушки
     int len(){
-        return uS;
+        return uS + 1;
     }
 
 
@@ -67,6 +67,7 @@ public:
     //очищение стека
     int clean(){
         uS = -1;
+        return 0;
     }
 };
 
@@ -116,6 +117,9 @@ public:
             return 1;
         else
             return 0;
+    }
+    int len(){
+        return (uR - uL + 1) % S;
     }
 
     //удаление элемента из очереди
