@@ -93,7 +93,7 @@ public:
             return 0;
     }
     int len(){
-        return (uR - uL + 1) % S;
+        return (uR - uL + 1 + S) % S;
     }
 
     //удаление элемента из очереди
