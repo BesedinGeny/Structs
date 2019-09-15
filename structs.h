@@ -63,6 +63,11 @@ public:
         }
         return mas[uS--];
     }
+
+    //очищение стека
+    int clean(){
+        uS = -1;
+    }
 };
 
 //круговая модель очереди
@@ -130,5 +135,11 @@ public:
             uL = (uL + 1) % S;
         }
         return elem;
+    }
+
+    //очищение очереди
+    int clean(){
+        uL = uR = -1;
+        return 0;
     }
 };
