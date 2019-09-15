@@ -40,6 +40,14 @@ public:
         return 0;
     }
 
+    //проверка на пустоту
+    int isEmpty(){
+        if (uS == -1)
+            return 1;
+        else
+            return 0;
+    }
+
     //узнать индекс верхушки
     int len(){
         return uS;
@@ -95,6 +103,14 @@ public:
 
         mas[uR] = elem;
         return 0;
+    }
+
+    //проверка на пустоту очереди
+    int isEmpty(){
+        if (uL == -1)
+            return 1;
+        else
+            return 0;
     }
 
     //удаление элемента из очереди
