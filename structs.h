@@ -9,7 +9,7 @@ using namespace std;
 class stack{
 private:
 
-    int *mas;
+    int mas[N];
     int uS = -1;
     //только для работы с помятью ;)
     int S = N;
@@ -18,7 +18,7 @@ public:
     //создание массива данных
 
     //без указания максимальной длинны стека в конструкторе
-    stack(){
+    /*stack(){
          mas = new int(N);
     }
     //с указанием макс. длинны стека
@@ -31,7 +31,7 @@ public:
     ~stack(){
         delete mas;
     }
-
+    */
     //добавление в стек элемента
     int push(int elem){
         if (uS == S - 1)
@@ -102,6 +102,7 @@ public:
             return 1;
         if (uL == uR){
             uL = 0;
+            uR = 0;
         }
 
             uR += 1;
