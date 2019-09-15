@@ -18,20 +18,8 @@ public:
     //создание массива данных
 
     //без указания максимальной длинны стека в конструкторе
-    /*stack(){
-         mas = new int(N);
-    }
-    //с указанием макс. длинны стека
-    stack(int SIZE){
-         mas = new int(SIZE);
-        S = SIZE;
-    }
 
-    //очищение памяти
-    ~stack(){
-        delete mas;
-    }
-    */
+
     //добавление в стек элемента
     int push(int elem){
         if (uS == S - 1)
@@ -77,11 +65,11 @@ private:
     int uL = -1;
     int uR = -1;
     int S = N;
-    int *mas;
+    int mas[N];
 public:
 
     //без указания максимальной длины очереди
-    queue(){
+    /*queue(){
          mas = new int(N);
     }
 
@@ -95,7 +83,7 @@ public:
     ~queue(){
         delete mas;
     }
-
+*/
     //добавление в очередь
     int push(int elem){
         if (uL == (uR + 1) % S)
