@@ -71,12 +71,6 @@ private:
     int mas[N];
 public:
 
-<<<<<<< HEAD
-    //без указания максимальной длины очереди
-
-=======
-    
->>>>>>> e01067975eccb43cb75d1a70d515da90c86be101
     //добавление в очередь
     int push(int elem){
         if (uL == (uR + 1) % S)
@@ -138,6 +132,69 @@ public:
         }
         cout << endl;
         return 0;
+    }
+};
+
+//дек
+class Deque
+{
+private:
+    int SIZE = N;
+    int storage[N], begin = SIZE / 2 - 1, end = SIZE / 2;
+public:
+    void pushL(int elem)
+    {
+        if (begin == -1)
+            printf("Error! Deque overflow.");
+        else
+        {
+            storage[begin] = elem;
+            begin--;
+        }
+    }
+    void pushR(int elem)
+    {
+        if (end == SIZE)
+            printf("Error! Deque overflow.");
+        else
+        {
+            storage[end] = elem;
+            end++;
+        }
+    }
+    int popL()
+    {
+        if (begin != end)
+        {
+            begin++;
+            return storage[begin];
+        }
+        else printf("Error! Deque is empty.");
+    }
+    int popR()
+    {
+        if (begin != end)
+        {
+            end--;
+            return storage[end];
+        }
+        else printf("Error! Deque is empty.");
+    }
+    int deqlenght()
+    {
+        return end - begin;
+    }
+    void deqclear()
+    {
+        begin = SIZE/2;
+        end = SIZE/2;
+    }
+    void deqprint()
+    {
+        if ((end - begin) != 0)
+            for (int i = begin + 1; i < end; i++)
+                printf("%d ", storage[i]);
+        else printf("Error! Deque is empty.");
     }
 };
 
