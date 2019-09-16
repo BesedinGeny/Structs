@@ -136,7 +136,7 @@ public:
 };
 
 //дек
-class Deque
+class deque
 {
 private:
     int SIZE = N;
