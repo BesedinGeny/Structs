@@ -71,8 +71,12 @@ private:
     int mas[N];
 public:
 
+<<<<<<< HEAD
     //без указания максимальной длины очереди
 
+=======
+    
+>>>>>>> e01067975eccb43cb75d1a70d515da90c86be101
     //добавление в очередь
     int push(int elem){
         if (uL == (uR + 1) % S)
@@ -97,7 +101,7 @@ public:
             return 0;
     }
     int len(){
-        return (uR - uL + 1) % S;
+        return (uR - uL + 1 + S) % S;
     }
 
     //удаление элемента из очереди
