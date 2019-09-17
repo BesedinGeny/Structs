@@ -229,7 +229,7 @@ public:
      * непосредственно из потока данных. Как идея, можно передавать строку-поток и читать из неё
      * upd: DONE
     */
-   //создание N элементов списка и заполнение нулями
+   //создание списка и заполнение из потока
     int Create( istream &is)
     {
         int data;
@@ -261,7 +261,7 @@ public:
 
     //вставить после n-ного элемента
     //можно использовать для инициализации списка в цикле, начиная с -1
-    int Add(int n, int Data){
+    int AddNode(int n, int Data){
         int i = 0;//считчик текущего элемента
 
         //Если создаем первый элемент в списке,то переназначаем голову и создаем первую ноду
@@ -288,9 +288,27 @@ public:
 
     }
 
+    //удаление ноды после n
+    int DeleteNode(int n){
+        Node *Current = Head;
+        int i =0;
+        //конец и нет нужного элемента
+        char isEnd = 0;
+        while((Current->Next != NULL) && (i < n)){
+            if ((Current->Next == NULL) && (i != n - 1))
+                isEnd = 1;
+        }
+        if (isEnd) return 1;
+        Node *delNode = Current->Next;
+        Current->Next = Current->Next->Next;
+        delete delNode;
+        return 0;
+    }
+
     //заполнить поле Дата в текущей ноде
     int Fill(Node *Current, int Data){
         Current->Data = Data;
+        return 0;
     }
 
     //очистка памяти листа
@@ -301,6 +319,7 @@ public:
                Head = Head->Next;
                delete Current;
         }
+        return 0;
     }
 
     //чтение из элемента
