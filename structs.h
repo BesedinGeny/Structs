@@ -2,7 +2,7 @@
 #define STRUCTS_H
 
 #endif // STRUCTS_H
-#define N 1000
+#define N 100
 
 #include<iostream>
 
@@ -71,13 +71,19 @@ private:
     int mas[N];
 public:
 
+
+    //
+    int inp(){
+        cout <<"This is edges: " <<  uL << " " << uR << endl;
+        return 0;
+    }
     //добавление в очередь
     int push(int elem){
         if (uL == (uR + 1) % S)
             return 1;
         if (uL == uR){
-            uL = 0;
-            uR = 0;
+            uL = 70;
+            uR = 70;
         }
 
             uR += 1;
@@ -144,22 +150,23 @@ private:
 public:
     void pushL(int elem)
     {
-        if (begin == -1)
-            printf("Error! Deque overflow.");
-        else
-        {
-            storage[begin] = elem;
-            begin--;
+
+
+            if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
+                    cout << "Erorr, cant push" << endl;
+             else{
+                storage[begin] = elem;
+                begin = (begin - 1 + SIZE) % SIZE;
         }
     }
     void pushR(int elem)
     {
-        if (end == SIZE)
-            printf("Error! Deque overflow.");
+        if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
+                cout << "Erorr, cant push" << endl;
         else
         {
             storage[end] = elem;
-            end++;
+            end = (end + 1) % SIZE;
         }
     }
     int popL()
@@ -175,7 +182,8 @@ public:
     {
         if (begin != end)
         {
-            end--;
+
+            end = (end - 1 + SIZE) % SIZE ;
             return storage[end];
         }
         else printf("Error! Deque is empty.");
@@ -197,23 +205,25 @@ public:
         else printf("Error! Deque is empty.");
     }
 };
-
+typedef basic_istream<int> istream;
 //односвязный список
 class list{
 
-
 private :
+
     //информационное звено списка
     struct Node{
-    public:
         int Data;
         Node *Next;
     };
+
+    //голова списка
     Node *Head = NULL;
+
 public:
 
    //создание N элементов списка и заполнение нулями
-    int Create(int n )
+    int Create(int n)
     {
         for ( int i = 0; i < n; i++){
             Node *Current = new Node;
@@ -226,6 +236,7 @@ public:
                 Current->Next = new Node;
                 Current = Current->Next;
                 Current->Next = NULL;
+
                 Current->Data = 0;
             }
         }
@@ -239,10 +250,20 @@ public:
     }
 
     //вставить после n-ного элемента
-    int add(int n, int Data){
+    //можно использовать для инициализации списка в цикле, начиная с -1
+    int Add(int n, int Data){
         int i = 0;//считчик текущего элемента
-        //если элемента с таким номером не существует, нода будет добавлена в конец
+
+        //Если создаем первый элемент в списке,то переназначаем голову и создаем первую ноду
         Node *Current = Head;
+        if (Current == NULL){
+            Head = Current;
+            Current->Next = NULL;
+            Current->Data = Data;
+            return 0;
+        }
+
+        //если элемента с таким номером не существует, нода будет добавлена в конец
         while ((i < n)&&(Current->Next != NULL)){
             i++;
             Current = Current->Next;
@@ -257,10 +278,15 @@ public:
 
     }
 
+    //заполнить поле Дата в текущей ноде
+    int Fill(Node *Current, int Data){
+        Current->Data = Data;
+    }
+
     //очистка памяти листа
     int Clear(){
         Node *Current = Head;
-        while (Head->Next != NULL){
+        while (Head != NULL){
                Current = Head;
                Head = Head->Next;
                delete Current;
