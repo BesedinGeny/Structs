@@ -205,7 +205,6 @@ public:
         else printf("Error! Deque is empty.");
     }
 };
-typedef basic_istream<int> istream;
 //односвязный список
 class list{
 
@@ -222,22 +221,33 @@ private :
 
 public:
 
+
+    /*
+     * На данный момент фунция полностью заменяется
+     * функцией Add в цикле. Есть идеи передавать поток
+     * для заполнения соответсвующих полей Data
+     * непосредственно из потока данных. Как идея, можно передавать строку-поток и читать из неё
+     * upd: DONE
+    */
    //создание N элементов списка и заполнение нулями
-    int Create(int n)
+    int Create( istream &is)
     {
-        for ( int i = 0; i < n; i++){
+        int data;
+        //пока я могу считать из потока я буду добавлять в список новый элемент
+        while (is >> data){
             Node *Current = new Node;
+            //если элемент первый то изменяем голову
             if (Head == NULL){
                 Head = Current;
                 Current->Next = NULL;
-                Current->Data = 0;
+                Current->Data = data;
             }
+            //иначе создаем текущий элемент
             else{
                 Current->Next = new Node;
                 Current = Current->Next;
                 Current->Next = NULL;
-
-                Current->Data = 0;
+                Current->Data = data;
             }
         }
 
@@ -291,5 +301,25 @@ public:
                Head = Head->Next;
                delete Current;
         }
+    }
+
+    //чтение из элемента
+    int Read(Node *Current){
+        return Current->Data;
+    }
+
+    //переход к нужному элементу
+    Node * GoToELement(int n){
+        char isFound = 0;
+        Node *Current = Head;
+        int i;
+        //пока можем бежим по массиву
+        for (i = 0; i < n && Current->Next!=NULL; i++){
+            Current = Current->Next;
+        }
+        if (i == n-1) isFound = 1;
+        //если такого элемента еще не создано, то вернуть нулпоинтер
+        if (!isFound) return NULL;
+        return Current;
     }
 };
