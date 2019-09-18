@@ -51,6 +51,13 @@ int main()
             cout << "\nStack isn't empty!" << endl;
         break;
     }
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
 
     return 0;
 
