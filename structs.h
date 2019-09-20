@@ -270,7 +270,7 @@ public:
             Head = Current;
             Current->Next = NULL;
             Current->Data = Data;
-            return 0;
+            return 1;
         }
 
         //если элемента с таким номером не существует, нода будет добавлена в конец
@@ -318,6 +318,15 @@ public:
                Current = Head;
                Head = Head->Next;
                delete Current;
+        }
+        return 0;
+    }
+
+    int printList(){
+        Node *Current = Head;
+        while (Current != NULL){
+            cout << Current->Data;
+            Current = Current->Next;
         }
         return 0;
     }
