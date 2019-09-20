@@ -324,10 +324,15 @@ public:
 
     int printList(){
         Node *Current = Head;
+        if (Current == NULL){
+            cout << "List is empty" << endl;
+            return 1;
+        }
         while (Current != NULL){
-            cout << Current->Data;
+            cout << Current->Data << " ";
             Current = Current->Next;
         }
+        cout << endl;
         return 0;
     }
 
