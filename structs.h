@@ -223,32 +223,32 @@ public:
 
 
     /*
-     * На данный момент фунция полностью заменяется
-     * функцией Add в цикле. Есть идеи передавать поток
-     * для заполнения соответсвующих полей Data
-     * непосредственно из потока данных. Как идея, можно передавать строку-поток и читать из неё
-     * upd: DONE
+     * Debugged
     */
    //создание списка и заполнение из потока
     int Create( istream &is)
     {
         int data;
+        Node *Current = new Node;
         //пока я могу считать из потока я буду добавлять в список новый элемент
         while (is >> data){
-            Node *Current = new Node;
+
             //если элемент первый то изменяем голову
             if (Head == NULL){
                 Head = Current;
                 Current->Next = NULL;
                 Current->Data = data;
+
             }
             //иначе создаем текущий элемент
             else{
+
                 Current->Next = new Node;
                 Current = Current->Next;
                 Current->Next = NULL;
                 Current->Data = data;
             }
+
         }
 
         return 0;
@@ -261,12 +261,15 @@ public:
 
     //вставить после n-ного элемента
     //можно использовать для инициализации списка в цикле, начиная с -1
+    //вставить после n-ного элемента
+    //можно использовать для инициализации списка в цикле, начиная с -1
+    //*DEBUGGED
     int AddNode(int n, int Data){
         int i = 0;//считчик текущего элемента
 
         //Если создаем первый элемент в списке,то переназначаем голову и создаем первую ноду
-        Node *Current = Head;
-        if (Current == NULL){
+        Node *Current = new Node;
+        if (Head == NULL){
             Head = Current;
             Current->Next = NULL;
             Current->Data = Data;
