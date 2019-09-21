@@ -267,14 +267,17 @@ public:
                 Head = Current;
                 Current->Next = NULL;
                 Current->Data = data;
+
             }
             //иначе создаем текущий элемент
             else{
+
                 Current->Next = new Node;
                 Current = Current->Next;
                 Current->Next = NULL;
                 Current->Data = data;
             }
+
         }
 
         return 0;
@@ -287,6 +290,8 @@ public:
 
     //вставить после n-ного элемента
     //можно использовать для инициализации списка в цикле, начиная с -1
+
+  
     //*DEBUGGED
     int AddNode(int n, int Data){
         int i = 0;//считчик текущего элемента
@@ -328,7 +333,9 @@ public:
         }
 
         while(!isEnd){
+
             if ((Current->Next == NULL))
+
                 isEnd = 1;
             if ((i == n - 1))
                 break;
@@ -337,11 +344,13 @@ public:
         }
 
         if (isEnd) return 1;
+
         Node *delNode = Current->Next;
         Current->Next = Current->Next->Next;
         delete delNode;
         return 0;
     }
+
 
     //заполнить поле Дата в текущей ноде
     int Fill(Node *Current, int Data){
@@ -372,6 +381,7 @@ public:
         }
         cout << endl;
 
+      
         return 0;
     }
 
