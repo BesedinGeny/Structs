@@ -71,16 +71,14 @@ private:
     int mas[N];
 public:
 
-
     //
-    int inp(){
+    void inp(){
         cout <<"This is edges: " <<  uL << " " << uR << endl;
-        return 0;
     }
     //добавление в очередь
     int push(int elem){
-        if (uL == (uR + 1) % S)
-            return 1;
+        if ((uL == (uR + 1)) || (uL == 0 && uR == S - 1))
+            return 0;
         if (uL == uR){
             uL = 70;
             uR = 70;
@@ -90,7 +88,8 @@ public:
             uR %= S;
 
         mas[uR] = elem;
-        return 0;
+
+        return 1;
     }
 
     //проверка на пустоту очереди
@@ -100,8 +99,9 @@ public:
         else
             return 0;
     }
+
     int len(){
-        return (uR - uL + 1 + S) % S;
+        return (uR - uL + S) % S;
     }
 
     //удаление элемента из очереди
@@ -114,30 +114,59 @@ public:
             }
             elem = mas[uL];
             uL = uR = -1;
-
         }
         else{
+            ++uL;
+            uL %= S;
             elem = mas[uL];
-            uL = (uL + 1) % S;
         }
+
         return elem;
     }
 
     //очищение очереди
-    int clean(){
+    void clean(){
         uL = uR = -1;
-        return 0;
+        cout << "Queue cleaned!" << endl;
     }
 
     //печать с удалением
-    int printQ(){
+    int fullPrintWithDelete(){
+        cout << "Full queue print with deleting elements: \n";
+        if (this->isEmpty()){
+            cout << "Queue is not created!\n";
+            return 0;
+        }
+
         while (!this->isEmpty()){
-            int current;
-            current = this->pop();
+            int current = this->pop();
             cout << current << " ";
         }
         cout << endl;
-        return 0;
+
+        return 1;
+    }
+    //печать без удаления
+    int fullPrint(){
+        cout << "Full queue print: \n";
+        if (this->isEmpty()){
+            cout << "Queue is not created!\n";
+            return 0;
+        }
+
+        if (uR - uL < 0){
+            for (int i = uL + 1; i < S; i++)
+                cout << mas[i] << " ";
+            for (int i = 0; i <= uR; i++)
+                cout << mas[i] << " ";
+        }
+        else{
+            for (int i = uL + 1; i <= uR; i++)
+                cout << mas[i] << " ";
+        }
+        cout << endl;
+
+        return 1;
     }
 };
 
@@ -261,8 +290,8 @@ public:
 
     //вставить после n-ного элемента
     //можно использовать для инициализации списка в цикле, начиная с -1
-    //вставить после n-ного элемента
-    //можно использовать для инициализации списка в цикле, начиная с -1
+
+  
     //*DEBUGGED
     int AddNode(int n, int Data){
         int i = 0;//считчик текущего элемента
@@ -294,7 +323,7 @@ public:
     //удаление ноды после n
     int DeleteNode(int n){
         Node *Current = Head;
-        int i =0;
+        int i = 0;
         //конец и нет нужного элемента
         char isEnd = 0;
         if (n == 0){
@@ -304,13 +333,16 @@ public:
         }
 
         while(!isEnd){
-            if ((Current->Next == NULL) )
+
+            if ((Current->Next == NULL))
+
                 isEnd = 1;
             if ((i == n - 1))
                 break;
             Current = Current->Next;
             i++;
         }
+
         if (isEnd) return 1;
 
         Node *delNode = Current->Next;
@@ -348,6 +380,8 @@ public:
             Current = Current->Next;
         }
         cout << endl;
+
+      
         return 0;
     }
 
