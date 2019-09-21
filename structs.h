@@ -297,16 +297,28 @@ public:
         int i =0;
         //конец и нет нужного элемента
         char isEnd = 0;
-        while((Current->Next != NULL) && (i < n)){
-            if ((Current->Next == NULL) && (i != n - 1))
+        if (n == 0){
+            Head = Current->Next;
+            delete Current;
+            return 0;
+        }
+
+        while(!isEnd){
+            if ((Current->Next == NULL) )
                 isEnd = 1;
+            if ((i == n - 1))
+                break;
+            Current = Current->Next;
+            i++;
         }
         if (isEnd) return 1;
+
         Node *delNode = Current->Next;
         Current->Next = Current->Next->Next;
         delete delNode;
         return 0;
     }
+
 
     //заполнить поле Дата в текущей ноде
     int Fill(Node *Current, int Data){
