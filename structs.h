@@ -71,16 +71,14 @@ private:
     int mas[N];
 public:
 
-
     //
-    int inp(){
+    void inp(){
         cout <<"This is edges: " <<  uL << " " << uR << endl;
-        return 0;
     }
     //добавление в очередь
     int push(int elem){
-        if (uL == (uR + 1) % S)
-            return 1;
+        if ((uL == (uR + 1)) || (uL == 0 && uR == S - 1))
+            return 0;
         if (uL == uR){
             uL = 70;
             uR = 70;
@@ -90,7 +88,8 @@ public:
             uR %= S;
 
         mas[uR] = elem;
-        return 0;
+
+        return 1;
     }
 
     //проверка на пустоту очереди
@@ -100,8 +99,9 @@ public:
         else
             return 0;
     }
+
     int len(){
-        return (uR - uL + 1 + S) % S;
+        return (uR - uL + S) % S;
     }
 
     //удаление элемента из очереди
@@ -114,30 +114,59 @@ public:
             }
             elem = mas[uL];
             uL = uR = -1;
-
         }
         else{
+            ++uL;
+            uL %= S;
             elem = mas[uL];
-            uL = (uL + 1) % S;
         }
+
         return elem;
     }
 
     //очищение очереди
-    int clean(){
+    void clean(){
         uL = uR = -1;
-        return 0;
+        cout << "Queue cleaned!" << endl;
     }
 
     //печать с удалением
-    int printQ(){
+    int fullPrintWithDelete(){
+        cout << "Full queue print with deleting elements: \n";
+        if (this->isEmpty()){
+            cout << "Queue is not created!\n";
+            return 0;
+        }
+
         while (!this->isEmpty()){
-            int current;
-            current = this->pop();
+            int current = this->pop();
             cout << current << " ";
         }
         cout << endl;
-        return 0;
+
+        return 1;
+    }
+    //печать без удаления
+    int fullPrint(){
+        cout << "Full queue print: \n";
+        if (this->isEmpty()){
+            cout << "Queue is not created!\n";
+            return 0;
+        }
+
+        if (uR - uL < 0){
+            for (int i = uL + 1; i < S; i++)
+                cout << mas[i] << " ";
+            for (int i = 0; i <= uR; i++)
+                cout << mas[i] << " ";
+        }
+        else{
+            for (int i = uL + 1; i <= uR; i++)
+                cout << mas[i] << " ";
+        }
+        cout << endl;
+
+        return 1;
     }
 };
 
@@ -223,19 +252,16 @@ public:
 
 
     /*
-     * На данный момент фунция полностью заменяется
-     * функцией Add в цикле. Есть идеи передавать поток
-     * для заполнения соответсвующих полей Data
-     * непосредственно из потока данных. Как идея, можно передавать строку-поток и читать из неё
-     * upd: DONE
+     * Debugged
     */
    //создание списка и заполнение из потока
     int Create( istream &is)
     {
         int data;
+        Node *Current = new Node;
         //пока я могу считать из потока я буду добавлять в список новый элемент
         while (is >> data){
-            Node *Current = new Node;
+
             //если элемент первый то изменяем голову
             if (Head == NULL){
                 Head = Current;
@@ -261,16 +287,17 @@ public:
 
     //вставить после n-ного элемента
     //можно использовать для инициализации списка в цикле, начиная с -1
+    //*DEBUGGED
     int AddNode(int n, int Data){
         int i = 0;//считчик текущего элемента
 
         //Если создаем первый элемент в списке,то переназначаем голову и создаем первую ноду
-        Node *Current = Head;
-        if (Current == NULL){
+        Node *Current = new Node;
+        if (Head == NULL){
             Head = Current;
             Current->Next = NULL;
             Current->Data = Data;
-            return 0;
+            return 1;
         }
 
         //если элемента с таким номером не существует, нода будет добавлена в конец
@@ -291,13 +318,24 @@ public:
     //удаление ноды после n
     int DeleteNode(int n){
         Node *Current = Head;
-        int i =0;
+        int i = 0;
         //конец и нет нужного элемента
         char isEnd = 0;
-        while((Current->Next != NULL) && (i < n)){
-            if ((Current->Next == NULL) && (i != n - 1))
-                isEnd = 1;
+        if (n == 0){
+            Head = Current->Next;
+            delete Current;
+            return 0;
         }
+
+        while(!isEnd){
+            if ((Current->Next == NULL))
+                isEnd = 1;
+            if ((i == n - 1))
+                break;
+            Current = Current->Next;
+            i++;
+        }
+
         if (isEnd) return 1;
         Node *delNode = Current->Next;
         Current->Next = Current->Next->Next;
@@ -319,6 +357,21 @@ public:
                Head = Head->Next;
                delete Current;
         }
+        return 0;
+    }
+
+    int printList(){
+        Node *Current = Head;
+        if (Current == NULL){
+            cout << "List is empty" << endl;
+            return 1;
+        }
+        while (Current != NULL){
+            cout << Current->Data << " ";
+            Current = Current->Next;
+        }
+        cout << endl;
+
         return 0;
     }
 
