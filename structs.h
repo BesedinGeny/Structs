@@ -129,16 +129,45 @@ public:
         return 0;
     }
 
-    //печать с удалением
-    int printQ(){
-        while (!this->isEmpty()){
-            int current;
-            current = this->pop();
-            cout << current << " ";
+    int fullPrintWithDelete(){
+            cout << "Full queue print with deleting elements: \n";
+            if (this->isEmpty()){
+                cout << "Queue is not created!\n";
+                return 0;
+            }
+
+            while (!this->isEmpty()){
+                int current = this->pop();
+                cout << current << " ";
+            }
+            cout << endl;
+
+            return 1;
         }
-        cout << endl;
-        return 0;
-    }
+        //печать без удаления
+        int fullPrint(){
+            cout << "Full queue print: \n";
+            if (this->isEmpty()){
+                cout << "Queue is not created!\n";
+                return 0;
+            }
+
+            if (uR - uL < 0){
+                for (int i = uL + 1; i < S; i++)
+                    cout << mas[i] << " ";
+                for (int i = 0; i <= uR; i++)
+                    cout << mas[i] << " ";
+            }
+            else{
+                for (int i = uL + 1; i <= uR; i++)
+                    cout << mas[i] << " ";
+            }
+            cout << endl;
+
+            return 1;
+        }
+    };
+
 };
 
 //дек
