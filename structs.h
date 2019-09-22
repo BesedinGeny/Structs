@@ -268,8 +268,9 @@ public:
         int i = 0;//считчик текущего элемента
 
         //Если создаем первый элемент в списке,то переназначаем голову и создаем первую ноду
-        Node *Current = new Node;
+        Node *Current = Head;
         if (Head == NULL){
+            Current = new Node;
             Head = Current;
             Current->Next = NULL;
             Current->Data = Data;
@@ -290,6 +291,7 @@ public:
         return 0;
 
     }
+
 
     //удаление ноды после n
     int DeleteNode(int n){
