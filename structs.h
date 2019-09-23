@@ -169,70 +169,107 @@ public:
         }
     };
 
-};
-
 //дек
 class deque
 {
 private:
     int SIZE = N;
-    int storage[N], begin = SIZE / 2 - 1, end = SIZE / 2;
+    int array[N];
+    int ul = -1, ur = -1;
 public:
-    void pushL(int elem)
-    {
-
-
-            if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
-                    cout << "Erorr, cant push" << endl;
-             else{
-                storage[begin] = elem;
-                begin = (begin - 1 + SIZE) % SIZE;
+    void pushL(int elem){
+        if (ul == ur && ul == -1){
+            ul = 0;
+            ur = 0;
+            array[ul] = elem;
+        }
+        else{
+            if ((ur + 1 + N) % N == ul || (ul == 0 && ur == N - 1))
+                //обработка переполнения
+                cout << "DEQUE OVERFLOW!!!" << endl;
+            else{
+                ul = (ul - 1 + N) % N;
+                array[ul] = elem;
+            }
         }
     }
     void pushR(int elem)
     {
-        if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
-                cout << "Erorr, cant push" << endl;
+        if (ul == ur && ul == -1){
+            ul = 0;
+            ur = 0;
+            array[ur] = elem;
+        }
+        else{
+            if ((ur + 1 + N) % N == ul || (ul == 0 && ur == N - 1))
+                //обработка переполнения
+                cout << "DEQUE OVERFLOW!!!" << endl;
+            else{
+                ur = (ur + 1 + N) % N;
+                array[ur] = elem;
+            }
+        }
+    }
+    int popL(){
+        if (ul == ur && ul == -1){
+            cout << "DEQUE IS EMPTY!" << endl;
+        }
+        else{
+            if (ul == ur){
+                int elem = array[ul];
+                ul = ur = -1;
+                return elem;
+            }
+            else{
+                int elem = array[ul];
+                ul = (ul + 1 + N) % N;
+                return elem;
+            }
+        }
+    }
+    int popR(){
+        if (ul == ur && ul == -1){
+            cout << "DEQUE IS EMPTY!" << endl;
+        }
+        else{
+            if (ul == ur){
+                int elem = array[ur];
+                ul = ur = -1;
+                return elem;
+            }
+            else{
+                int elem = array[ur];
+                ur = (ur - 1 + N) % N;
+                return elem;
+            }
+        }
+    }
+    int lenght(){
+        if (ur - ul > 0)
+            return ur - ul + 1;
         else
-        {
-            storage[end] = elem;
-            end = (end + 1) % SIZE;
-        }
+            return ur - ul + N + 1;
     }
-    int popL()
-    {
-        if (begin != end)
-        {
-            begin++;
-            return storage[begin];
-        }
-        else printf("Error! Deque is empty.");
-    }
-    int popR()
-    {
-        if (begin != end)
-        {
 
-            end = (end - 1 + SIZE) % SIZE ;
-            return storage[end];
+    void clear(){
+        ul = ur = -1;
+    }
+
+    void print(){
+        if (ul != -1){
+            cout << "Print deque: " << endl;
+            if (ur - ul > 0)
+                for (int i = ul; i <= ur; i++)
+                    cout << array[i] << " ";
+            else{
+                for (int i = ul; i < N; i++)
+                    cout << array[i] << " ";
+                for (int i = 0; i <= ur; i++)
+                    cout << array[i] << " ";
+            }
+            cout << endl;
         }
-        else printf("Error! Deque is empty.");
-    }
-    int deqlenght()
-    {
-        return end - begin;
-    }
-    void deqclear()
-    {
-        begin = SIZE/2;
-        end = SIZE/2;
-    }
-    void deqprint()
-    {
-        if ((end - begin) != 0)
-            for (int i = begin + 1; i < end; i++)
-                printf("%d ", storage[i]);
-        else printf("Error! Deque is empty.");
+        else printf("ERROR: DEQUE IS EMPTY!");
     }
 };
 //односвязный список

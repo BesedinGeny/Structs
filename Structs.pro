@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    example_queue.cpp
+    example_deque.cpp \
 
 HEADERS += \
     structs.h
