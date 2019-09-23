@@ -169,34 +169,45 @@ public:
         }
     };
 
-};
-
 //дек
 class deque
 {
 private:
     int SIZE = N;
-    int storage[N], begin = SIZE / 2 - 1, end = SIZE / 2;
+    int array[N];
+    int ul = -1, ur = -1;
 public:
-    void pushL(int elem)
-    {
-
-
-            if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
-                    cout << "Erorr, cant push" << endl;
-             else{
-                storage[begin] = elem;
-                begin = (begin - 1 + SIZE) % SIZE;
+    void pushL(int elem){
+        if (ul == ur && ul == -1){
+            ul = 0;
+            ur = 0;
+            array[ul] = elem;
+        }
+        else{
+            if ((ur + 1 + N) % N == ul || (ul == 0 && ur == N - 1))
+                //обработка переполнения
+                cout << "DEQUE OVERFLOW!!!" << endl;
+            else{
+                ul = (ul - 1 + N) % N;
+                array[ul] = elem;
+            }
         }
     }
     void pushR(int elem)
     {
-        if ((end - begin + 1 + SIZE) % SIZE == SIZE - 1)
-                cout << "Erorr, cant push" << endl;
-        else
-        {
-            storage[end] = elem;
-            end = (end + 1) % SIZE;
+        if (ul == ur && ul == -1){
+            ul = 0;
+            ur = 0;
+            array[ur] = elem;
+        }
+        else{
+            if ((ur + 1 + N) % N == ul || (ul == 0 && ur == N - 1))
+                //обработка переполнения
+                cout << "DEQUE OVERFLOW!!!" << endl;
+            else{
+                ur = (ur + 1 + N) % N;
+                array[ur] = elem;
+            }
         }
     }
     int popL()
