@@ -126,6 +126,7 @@ public:
     //очищение очереди
     int clean(){
         uL = uR = -1;
+        cout << "Queue cleaned!" << endl;
         return 0;
     }
 
@@ -312,6 +313,7 @@ public:
             Current = Current->Next;
 
         }
+        //cout << i << ")";
         //пришли к n-ному элементу, либо к последнему
         Node *NewEl = new Node;
         NewEl->Next = Current->Next;
@@ -345,15 +347,11 @@ public:
         if (isEnd) return 1;
 
         Node *delNode = Current->Next;
-        Current->Next = Current->Next->Next;
+        if (Current->Next != NULL)
+            Current->Next = Current->Next->Next;
+        else
+            Current->Next = NULL;
         delete delNode;
-        return 0;
-    }
-
-
-    //заполнить поле Дата в текущей ноде
-    int Fill(Node *Current, int Data){
-        Current->Data = Data;
         return 0;
     }
 
