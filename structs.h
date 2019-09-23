@@ -229,21 +229,32 @@ public:
         }
         else printf("Error! Deque is empty.");
     }
-    int deqlenght()
-    {
-        return end - begin;
+    int lenght(){
+        if (ur - ul > 0)
+            return ur - ul + 1;
+        else
+            return ur - ul + N + 1;
     }
-    void deqclear()
-    {
-        begin = SIZE/2;
-        end = SIZE/2;
+
+    void clear(){
+        ul = ur = -1;
     }
-    void deqprint()
-    {
-        if ((end - begin) != 0)
-            for (int i = begin + 1; i < end; i++)
-                printf("%d ", storage[i]);
-        else printf("Error! Deque is empty.");
+
+    void print(){
+        if (ul != -1){
+            cout << "Print deque: " << endl;
+            if (ur - ul > 0)
+                for (int i = ul; i <= ur; i++)
+                    cout << array[i] << " ";
+            else{
+                for (int i = ul; i < N; i++)
+                    cout << array[i] << " ";
+                for (int i = 0; i <= ur; i++)
+                    cout << array[i] << " ";
+            }
+            cout << endl;
+        }
+        else printf("ERROR: DEQUE IS EMPTY!");
     }
 };
 //односвязный список
