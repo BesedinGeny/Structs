@@ -210,24 +210,39 @@ public:
             }
         }
     }
-    int popL()
-    {
-        if (begin != end)
-        {
-            begin++;
-            return storage[begin];
+    int popL(){
+        if (ul == ur && ul == -1){
+            cout << "DEQUE IS EMPTY!" << endl;
         }
-        else printf("Error! Deque is empty.");
+        else{
+            if (ul == ur){
+                int elem = array[ul];
+                ul = ur = -1;
+                return elem;
+            }
+            else{
+                int elem = array[ul];
+                ul = (ul + 1 + N) % N;
+                return elem;
+            }
+        }
     }
-    int popR()
-    {
-        if (begin != end)
-        {
-
-            end = (end - 1 + SIZE) % SIZE ;
-            return storage[end];
+    int popR(){
+        if (ul == ur && ul == -1){
+            cout << "DEQUE IS EMPTY!" << endl;
         }
-        else printf("Error! Deque is empty.");
+        else{
+            if (ul == ur){
+                int elem = array[ur];
+                ul = ur = -1;
+                return elem;
+            }
+            else{
+                int elem = array[ur];
+                ur = (ur - 1 + N) % N;
+                return elem;
+            }
+        }
     }
     int lenght(){
         if (ur - ul > 0)

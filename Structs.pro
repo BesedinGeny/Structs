@@ -5,7 +5,6 @@ CONFIG -= qt
 
 SOURCES += \
     example_deque.cpp \
-    example_deque.cpp
 
 HEADERS += \
     structs.h
